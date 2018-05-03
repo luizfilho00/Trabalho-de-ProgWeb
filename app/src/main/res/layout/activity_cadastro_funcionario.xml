@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="80dp"
+    android:layout_marginRight="50dp"
+    android:gravity="center_vertical"
+    tools:context="com.example.a201619060353.atividadeextra2.CadastroFuncionario">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Nome:"/>
+
+        <EditText
+            android:id="@+id/edtNomeFuncionario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Digite o nome do cabra"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Cargo:"/>
+
+        <Spinner
+            android:id="@+id/espnBrasil"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </Spinner>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Salário:"/>
+
+        <EditText
+            android:id="@+id/edtSalarioFuncionario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="valor em R$"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSalvarCargo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Salvar"
+        android:onClick="cadastrarFuncionario"/>
+
+</LinearLayout>
+

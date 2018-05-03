@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context="com.example.a201619060353.atividadeextra2.MainActivity">
+
+    <Button
+        android:id="@+id/btnCadastrarCargos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cadastrarCargos"
+        android:onClick="cadastrarCargo"/>
+
+    <Button
+        android:id="@+id/btnCadastrarFunc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cadastrarFuncionarios"
+        android:onClick="cadastrarFuncionario"/>
+
+    <Button
+        android:id="@+id/btnListarFunc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/listarFuncionarios"
+        android:onClick="listarFuncionarios"/>
+
+</LinearLayout>
