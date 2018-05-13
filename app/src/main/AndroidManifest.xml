@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".CadastroCargo" />
-        <activity android:name=".CadastroFuncionario"></activity>
+        <activity android:name=".CadastroFuncionario" />
+        <activity android:name=".ListaFuncionarios"></activity>
     </application>
 
 </manifest>

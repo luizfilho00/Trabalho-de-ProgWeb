@@ -20,12 +20,12 @@
         android:id="@+id/edtNomeCargo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="nome do cargo"/>
+        android:hint="nome do cargo               "/>
 </LinearLayout>
     <Button
         android:id="@+id/btnSalvarCargo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Salvar"
-        android:onClick="cadastrarCargo"/>
+        android:onClick="salvarCargo"/>
 </LinearLayout>

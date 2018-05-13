@@ -21,7 +21,7 @@
             android:text="Nome:"/>
 
         <EditText
-            android:id="@+id/edtNomeFuncionario"
+            android:id="@+id/edtNomeFunc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Digite o nome do cabra"/>
@@ -38,7 +38,7 @@
             android:text="Cargo:"/>
 
         <Spinner
-            android:id="@+id/espnBrasil"
+            android:id="@+id/spinCargo"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </Spinner>
@@ -55,9 +55,10 @@
             android:text="Salário:"/>
 
         <EditText
-            android:id="@+id/edtSalarioFuncionario"
+            android:id="@+id/edtSalario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
             android:hint="valor em R$"/>
     </LinearLayout>
 
@@ -67,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Salvar"
-        android:onClick="cadastrarFuncionario"/>
+        android:onClick="salvarFuncionario"/>
 
 </LinearLayout>
 
