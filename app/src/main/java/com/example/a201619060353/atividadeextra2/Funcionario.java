@@ -56,7 +56,7 @@ public class Funcionario implements Serializable {
 
     @Override
     public String toString() {
-        return nome + "  ::  Cargo: " + cargo.getNomeDoCargo()
-                + "  ::  Salário: R$" + new DecimalFormat(".00").format(salario);
+        return nome + "_" + cargo.getNomeDoCargo()
+                + "_" + "R$"+ new DecimalFormat(".00").format(salario);
     }
 }

@@ -1,9 +1,11 @@
 package com.example.a201619060353.atividadeextra2;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +21,7 @@ public class CadastroFuncionario extends AppCompatActivity {
     private EditText salarioFunc;
     private Spinner spinnerCargo;
     BDHelper bdHelper = new BDHelper(this);
+    private String novoCargo = "Novo cargo...";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,18 +30,35 @@ public class CadastroFuncionario extends AppCompatActivity {
         nomeFunc = findViewById(R.id.edtNomeFunc);
         salarioFunc = findViewById(R.id.edtSalario);
         spinnerCargo = findViewById(R.id.spinCargo);
-        ArrayList<Cargo> listCargos = bdHelper.selectAllCargo();
+        carregarDados();
+    }
+
+    private void carregarDados(){
+        final ArrayList<Cargo> listCargos = bdHelper.selectAllCargo();
         listCargos.sort(new Comparator<Cargo>() {
             @Override
             public int compare(Cargo cargo, Cargo t1) {
                 return cargo.getNomeDoCargo().compareToIgnoreCase(t1.getNomeDoCargo());
             }
         });
+        listCargos.add(0, new Cargo(" "));
+        listCargos.add(new Cargo(novoCargo));
         ArrayAdapter<Cargo> listCargoAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, listCargos);
         listCargoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCargo.setAdapter(listCargoAdapter);
-
+        spinnerCargo.setSelection(0);
+        spinnerCargo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == listCargos.size() - 1){
+                    Intent intent = new Intent(CadastroFuncionario.this, CadastroCargo.class);
+                    startActivity(intent);
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
         if (getIntent().getStringExtra("funcao") != null){
             if(getIntent().getStringExtra("funcao").equals("atualizar")){
                 Bundle b = getIntent().getExtras();
@@ -51,13 +71,11 @@ public class CadastroFuncionario extends AppCompatActivity {
                 ((Button) findViewById(R.id.btnVariavel)).setText("Alterar");
             }
         }
-
-
     }
 
     public void salvarFuncionario(View view) {
-        if (spinnerCargo == null || spinnerCargo.getSelectedItem() == null){
-            alert("Por favor cadastre um Cargo antes.");
+        if (spinnerCargo == null || spinnerCargo.getSelectedItem().toString().equals(" ")){
+            alert("Por favor selecione um Cargo!");
             return;
         }
         if (isNull()){
@@ -69,7 +87,6 @@ public class CadastroFuncionario extends AppCompatActivity {
         String cargoNome = spinnerCargo.getSelectedItem().toString();
         int cargoId = bdHelper.buscarCargo(cargoNome);
         Cargo cargo = new Cargo(cargoId, cargoNome);
-        System.out.println("CARGOOOOOOOOOOOOOOOOOOOO: " + cargo.getNomeDoCargo());
         Funcionario f;
         long result;
 
@@ -88,7 +105,7 @@ public class CadastroFuncionario extends AppCompatActivity {
             f = new Funcionario(nome, cargo, salario);
             result = bdHelper.inserirNoBanco(f);
             if(result != -1){
-                alert("Funcionário inserido com sucesso!");
+                alert("Funcionário cadastrado com sucesso!");
             }else{
                 alert("Ocorreu um erro, por favor tente novamente.");
             }
@@ -103,5 +120,11 @@ public class CadastroFuncionario extends AppCompatActivity {
 
     private void alert (String msg){
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        carregarDados();
     }
 }

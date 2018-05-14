@@ -3,12 +3,14 @@ package com.example.a201619060353.atividadeextra2;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class CadastroCargo extends AppCompatActivity {
     private EditText nomeDoCargo;
     private BDHelper bdHelperCargo;
+    private int idCargo = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +18,15 @@ public class CadastroCargo extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro_cargo);
         nomeDoCargo = findViewById(R.id.edtNomeCargo);
         bdHelperCargo = new BDHelper(this);
+        if (getIntent().getStringExtra("funcao") != null){
+            if(getIntent().getStringExtra("funcao").equals("atualizar")){
+                Bundle b = getIntent().getExtras();
+                Cargo c = (Cargo) b.getSerializable("chave_cargo");
+                idCargo = c.getId();
+                nomeDoCargo.setText(c.getNomeDoCargo());
+                ((Button) findViewById(R.id.btnSalvarCargo)).setText("Alterar");
+            }
+        }
     }
 
     public void salvarCargo(View view) {
@@ -23,13 +34,29 @@ public class CadastroCargo extends AppCompatActivity {
             alert("Favor inserir nome do cargo!");
             return;
         }
-        String nomeCargo = nomeDoCargo.getText().toString();
-        Cargo c = new Cargo(nomeCargo);
-        long result = bdHelperCargo.inserirNoBanco(c);
-        if (result == -1)
-            alert("Cargo já existe no banco!");
-        else
-            alert("Cargo cadastrado com sucesso!");
+        Cargo c;
+        long result;
+        if (getIntent().getStringExtra("funcao") != null) {
+            if (getIntent().getStringExtra("funcao").equals("atualizar")) {
+                c = new Cargo(idCargo, nomeDoCargo.getText().toString());
+                result = bdHelperCargo.alterarNoBanco(c);
+                if(result != -1){
+                    alert("Cargo alterado com sucesso!");
+                }else{
+                    alert("Ocorreu um erro, por favor tente novamente.");
+                }
+            }
+        }
+        else{
+            c = new Cargo(idCargo, nomeDoCargo.getText().toString());
+            result = bdHelperCargo.inserirNoBanco(c);
+            if(result != -1){
+                alert("Cargo cadastrado com sucesso!");
+            }else{
+                alert("Ocorreu um erro, por favor tente novamente.");
+            }
+        }
+        finish();
     }
 
     private void alert(String msg){
