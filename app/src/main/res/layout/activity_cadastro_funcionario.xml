@@ -1,74 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginLeft="80dp"
-    android:layout_marginRight="50dp"
     android:gravity="center_vertical"
     tools:context="com.example.a201619060353.atividadeextra2.CadastroFuncionario">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Nome:"/>
+        android:layout_marginEnd="25dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="100dp"
+        android:text="Nome:"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/edtNomeFunc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/edtNomeFunc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Digite o nome do cabra"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Cargo:"/>
-
-        <Spinner
-            android:id="@+id/spinCargo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </Spinner>
-    </LinearLayout>
-
-    <LinearLayout
+    <EditText
+        android:id="@+id/edtNomeFunc"
+        android:inputType="textCapWords"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Salário:"/>
+        android:layout_marginEnd="72dp"
+        android:layout_marginTop="90dp"
+        android:hint="Nome do funcionário"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/edtSalario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:hint="valor em R$"/>
-    </LinearLayout>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="26dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="36dp"
+        android:text="Cargo:"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/spinCargo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <Spinner
+        android:id="@+id/spinCargo"
+        android:layout_width="178dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginTop="27dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtNomeFunc">
+
+    </Spinner>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="40dp"
+        android:text="Salário:"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/edtSalario"
+        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/edtSalario"
+        android:layout_width="177dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="73dp"
+        android:layout_marginTop="22dp"
+        android:hint="R$"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinCargo" />
 
     <Button
-        android:id="@+id/btnSalvarCargo"
+        android:id="@+id/btnVariavel"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_gravity="center"
-        android:text="Salvar"
-        android:onClick="salvarFuncionario"/>
+        android:layout_marginBottom="100dp"
+        android:layout_marginTop="93dp"
+        android:onClick="salvarFuncionario"
+        android:text="Cadastrar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtSalario" />
 
-</LinearLayout>
-
+</android.support.constraint.ConstraintLayout>

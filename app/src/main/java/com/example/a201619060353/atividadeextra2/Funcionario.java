@@ -13,22 +13,21 @@ public class Funcionario implements Serializable {
     private int id;
     private String nome;
     private double salario;
+    private Cargo cargo;
     private int cargoID;
     private String cargoNome;
 
-    public Funcionario(int id, String nome, int cargoID, String cargoNome, double salario){
+    public Funcionario(int id, String nome, Cargo cargo, double salario){
         this.id = id;
         this.nome = nome;
-        this.cargoID = cargoID;
-        this.cargoNome = cargoNome;
+        this.cargo = cargo;
         this.salario = salario;
     }
 
-    public Funcionario(String nome, double salario, int cargoID, String cargoNome){
+    public Funcionario(String nome, Cargo cargo, double salario){
         this.nome = nome;
         this.salario = salario;
-        this.cargoID = cargoID;
-        this.cargoNome = cargoNome;
+        this.cargo = cargo;
     }
 
     public int getId() {
@@ -51,25 +50,13 @@ public class Funcionario implements Serializable {
         this.salario = salario;
     }
 
-    public int getCargoID() {
-        return cargoID;
-    }
+    public Cargo getCargo() { return cargo; }
 
-    public void setCargoID(int cargoID) {
-        this.cargoID = cargoID;
-    }
+    public void setCargo(Cargo cargo){ this.cargo = cargo; }
 
     @Override
-    public String toString(){
-        return nome + "  ::  Cargo: " + cargoNome
+    public String toString() {
+        return nome + "  ::  Cargo: " + cargo.getNomeDoCargo()
                 + "  ::  Salário: R$" + new DecimalFormat(".00").format(salario);
-    }
-
-    public String getCargoNome() {
-        return cargoNome;
-    }
-
-    public void setCargoNome(String cargoNome) {
-        this.cargoNome = cargoNome;
     }
 }

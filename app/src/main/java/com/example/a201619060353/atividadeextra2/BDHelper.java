@@ -146,7 +146,7 @@ public class BDHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUM_FUNC_NOME, f.getNome());
         values.put(COLUM_FUNC_SALARIO, f.getSalario());
-        values.put(COLUM_FUNC_CARGO, f.getCargoID());
+        values.put(COLUM_FUNC_CARGO, f.getCargo().getId());
         long retornoDB = db.insert(TABLE_FUNC, null, values);
         db.close();
 
@@ -158,6 +158,7 @@ public class BDHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUM_FUNC_NOME, f.getNome());
         values.put(COLUM_FUNC_SALARIO, f.getSalario());
+        values.put(COLUM_FUNC_CARGO, f.getCargo().getId());
         long retorno = db.update(TABLE_FUNC, values,COLUM_FUNC_ID + " = "+f.getId(), null);
         db.close();
         return retorno;
@@ -179,6 +180,7 @@ public class BDHelper extends SQLiteOpenHelper {
         int cargoID;
         double salario;
         String cargoNome;
+        Cargo cargo;
         Funcionario f;
         ArrayList<Funcionario> arrayFuncionarios = new ArrayList<>();
         if (cursor.moveToFirst()){
@@ -187,7 +189,8 @@ public class BDHelper extends SQLiteOpenHelper {
             cargoID = cursor.getInt(2);
             salario = cursor.getDouble(3);
             cargoNome = buscarCargo(cargoID);
-            f = new Funcionario(id, nome, cargoID, cargoNome, salario);
+            cargo = new Cargo(cargoID, cargoNome);
+            f = new Funcionario(id, nome, cargo, salario);
             arrayFuncionarios.add(f);
             while(cursor.moveToNext()) {
                 id = cursor.getInt(0);
@@ -195,7 +198,8 @@ public class BDHelper extends SQLiteOpenHelper {
                 cargoID = cursor.getInt(2);
                 salario = cursor.getDouble(3);
                 cargoNome = buscarCargo(cargoID);
-                f = new Funcionario(id, nome, cargoID, cargoNome, salario);
+                cargo = new Cargo(cargoID, cargoNome);
+                f = new Funcionario(id, nome, cargo, salario);
                 arrayFuncionarios.add(f);
             }
         }
