@@ -20,13 +20,16 @@ public class CadastroFuncionario extends AppCompatActivity {
     private EditText nomeFunc;
     private EditText salarioFunc;
     private Spinner spinnerCargo;
-    BDHelper bdHelper = new BDHelper(this);
+    private FuncionarioDBHelper dbHelperFunc;
+    private CargoDBHelper dbHelperCargo;
     private String novoCargo = "Novo cargo...";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_funcionario);
+        dbHelperCargo = new CargoDBHelper(this);
+        dbHelperFunc = new FuncionarioDBHelper(this);
         nomeFunc = findViewById(R.id.edtNomeFunc);
         salarioFunc = findViewById(R.id.edtSalario);
         spinnerCargo = findViewById(R.id.spinCargo);
@@ -34,7 +37,7 @@ public class CadastroFuncionario extends AppCompatActivity {
     }
 
     private void carregarDados(){
-        final ArrayList<Cargo> listCargos = bdHelper.selectAllCargo();
+        final ArrayList<Cargo> listCargos = dbHelperCargo.selectAll();
         listCargos.sort(new Comparator<Cargo>() {
             @Override
             public int compare(Cargo cargo, Cargo t1) {
@@ -85,7 +88,7 @@ public class CadastroFuncionario extends AppCompatActivity {
         String nome = nomeFunc.getText().toString();
         double salario = Double.valueOf(salarioFunc.getText().toString());
         String cargoNome = spinnerCargo.getSelectedItem().toString();
-        int cargoId = bdHelper.buscarCargo(cargoNome);
+        int cargoId = dbHelperCargo.buscarCargo(cargoNome);
         Cargo cargo = new Cargo(cargoId, cargoNome);
         Funcionario f;
         long result;
@@ -93,7 +96,7 @@ public class CadastroFuncionario extends AppCompatActivity {
         if (getIntent().getStringExtra("funcao") != null){
             if (getIntent().getStringExtra("funcao").equals("atualizar")){
                 f = new Funcionario(idFunc, nome, cargo, salario);
-                result = bdHelper.alterarNoBanco(f);
+                result = dbHelperFunc.alterarNoBanco(f);
                 if(result != -1){
                     alert("Funcionário alterado com sucesso!");
                 }else{
@@ -103,7 +106,7 @@ public class CadastroFuncionario extends AppCompatActivity {
         }
         else{
             f = new Funcionario(nome, cargo, salario);
-            result = bdHelper.inserirNoBanco(f);
+            result = dbHelperFunc.inserirNoBanco(f);
             if(result != -1){
                 alert("Funcionário cadastrado com sucesso!");
             }else{

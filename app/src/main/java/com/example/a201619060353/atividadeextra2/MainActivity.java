@@ -17,11 +17,10 @@ import com.github.clans.fab.FloatingActionMenu;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private ListView listaFuncionarios;
-    private BDHelper bdHelperFunc;
+    private FuncionarioDBHelper dbHelperFunc;
     private Funcionario funcSelecionado;
     private FloatingActionMenu menuPrincipal;
 
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         menuPrincipal = findViewById(R.id.floatingMenu);
-        bdHelperFunc = new BDHelper(this);
+        dbHelperFunc = new FuncionarioDBHelper(this);
         listaFuncionarios = findViewById(R.id.listFunc);
         registerForContextMenu(listaFuncionarios);
         ViewGroup headerView = (ViewGroup) getLayoutInflater().inflate(R.layout.header, listaFuncionarios, false);
@@ -51,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void carregarLista(){
-        final ArrayList<Funcionario> listFunc = bdHelperFunc.selectAllFunc();
+        final ArrayList<Funcionario> listFunc = dbHelperFunc.selectAll();
         ListAdapter adapter = new ListAdapter(this, R.layout.rowlayout, R.id.txtNome, listFunc);
         listFunc.sort(new Comparator<Funcionario>() {
             @Override
@@ -94,8 +93,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 long retornoDB;
-                retornoDB = bdHelperFunc.excluirDoBanco(funcSelecionado);
-                bdHelperFunc.close();
+                retornoDB = dbHelperFunc.excluirDoBanco(funcSelecionado);
                 carregarLista();
                 if(retornoDB != -1){
                     alert("Funcionário excluído com sucesso!");

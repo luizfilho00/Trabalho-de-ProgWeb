@@ -9,15 +9,17 @@ import android.widget.Toast;
 
 public class CadastroCargo extends AppCompatActivity {
     private EditText nomeDoCargo;
-    private BDHelper bdHelperCargo;
+    private CargoDBHelper dbHelperCargo;
     private int idCargo = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_cargo);
+
+        dbHelperCargo = new CargoDBHelper(this);
+
         nomeDoCargo = findViewById(R.id.edtNomeCargo);
-        bdHelperCargo = new BDHelper(this);
         if (getIntent().getStringExtra("funcao") != null){
             if(getIntent().getStringExtra("funcao").equals("atualizar")){
                 Bundle b = getIntent().getExtras();
@@ -39,7 +41,7 @@ public class CadastroCargo extends AppCompatActivity {
         if (getIntent().getStringExtra("funcao") != null) {
             if (getIntent().getStringExtra("funcao").equals("atualizar")) {
                 c = new Cargo(idCargo, nomeDoCargo.getText().toString());
-                result = bdHelperCargo.alterarNoBanco(c);
+                result = dbHelperCargo.alterarNoBanco(c);
                 if(result != -1){
                     alert("Cargo alterado com sucesso!");
                 }else{
@@ -49,7 +51,7 @@ public class CadastroCargo extends AppCompatActivity {
         }
         else{
             c = new Cargo(idCargo, nomeDoCargo.getText().toString());
-            result = bdHelperCargo.inserirNoBanco(c);
+            result = dbHelperCargo.inserirNoBanco(c);
             if(result != -1){
                 alert("Cargo cadastrado com sucesso!");
             }else{
