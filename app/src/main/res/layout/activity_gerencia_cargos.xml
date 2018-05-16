@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context="com.example.a201619060353.atividadeextra2.GerenciaCargos">
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listCargos">
+    </ListView>
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/floatingMenuGC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginTop="414dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.92"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.839">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/btnCadastrarCargoGC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/fab_add"
+            app:fab_colorNormal="@android:color/holo_green_dark"
+            app:fab_label="Novo Cargo"
+            app:fab_size="mini"
+            android:onClick="onClickCadastrarCargoGC"/>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/btnCadastrarFuncGC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/fab_add"
+            app:fab_label="Novo Funcionário"
+            app:fab_colorNormal="@android:color/holo_blue_dark"
+            app:fab_size="mini"
+            android:onClick="onClickCadastrarFuncGC"/>
+
+    </com.github.clans.fab.FloatingActionMenu>
+
+</android.support.constraint.ConstraintLayout>
