@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 public class CadastroCargo extends AppCompatActivity {
     private EditText nomeDoCargo;
-    private CargoDBHelper dbHelperCargo;
+    private CargoDAO dbHelperCargo;
     private int idCargo = -1;
 
     @Override
@@ -17,7 +17,7 @@ public class CadastroCargo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_cargo);
 
-        dbHelperCargo = new CargoDBHelper(this);
+        dbHelperCargo = new CargoDAO(this);
 
         nomeDoCargo = findViewById(R.id.edtNomeCargo);
         if (getIntent().getStringExtra("funcao") != null){

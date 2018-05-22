@@ -1,7 +1,6 @@
 package com.example.a201619060353.atividadeextra2;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +40,7 @@ public class ListAdapter extends ArrayAdapter<Funcionario> {
             rowView.setTag(holder);
         }
 
-        FuncionarioDBHelper dbHelperFunc = new FuncionarioDBHelper(context);
+        FuncionarioDAO dbHelperFunc = new FuncionarioDAO(context);
         ArrayList<Funcionario> listFunc = dbHelperFunc.selectAll();
         listFunc.sort(new Comparator<Funcionario>() {
             @Override

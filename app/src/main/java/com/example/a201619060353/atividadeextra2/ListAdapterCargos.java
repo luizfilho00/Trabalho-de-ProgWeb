@@ -36,7 +36,7 @@ public class ListAdapterCargos extends ArrayAdapter<Cargo> {
             rowView.setTag(holder);
         }
 
-        CargoDBHelper dbHelperCargo = new CargoDBHelper(context);
+        CargoDAO dbHelperCargo = new CargoDAO(context);
         ArrayList<Cargo> listCargo = dbHelperCargo.selectAll();
         listCargo.sort(new Comparator<Cargo>() {
             @Override

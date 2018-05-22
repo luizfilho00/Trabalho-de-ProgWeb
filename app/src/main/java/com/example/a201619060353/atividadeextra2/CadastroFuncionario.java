@@ -1,6 +1,5 @@
 package com.example.a201619060353.atividadeextra2;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,16 +19,16 @@ public class CadastroFuncionario extends AppCompatActivity {
     private EditText nomeFunc;
     private EditText salarioFunc;
     private Spinner spinnerCargo;
-    private FuncionarioDBHelper dbHelperFunc;
-    private CargoDBHelper dbHelperCargo;
+    private FuncionarioDAO dbHelperFunc;
+    private CargoDAO dbHelperCargo;
     private String novoCargo = "Novo cargo...";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_funcionario);
-        dbHelperCargo = new CargoDBHelper(this);
-        dbHelperFunc = new FuncionarioDBHelper(this);
+        dbHelperCargo = new CargoDAO(this);
+        dbHelperFunc = new FuncionarioDAO(this);
         nomeFunc = findViewById(R.id.edtNomeFunc);
         salarioFunc = findViewById(R.id.edtSalario);
         spinnerCargo = findViewById(R.id.spinCargo);

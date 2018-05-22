@@ -4,13 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 
-public class FuncionarioDBHelper extends AbstractDB<Funcionario> {
+public class FuncionarioDAO extends AbstractDAO<Funcionario> {
     private static final String TABLE_FUNC = "funcionario";
     private static final String COLUM_FUNC_ID = "func_id";
     private static final String COLUM_FUNC_NOME = "func_nome";
@@ -20,7 +17,7 @@ public class FuncionarioDBHelper extends AbstractDB<Funcionario> {
     private SQLiteDatabase db;
     private Context context;
 
-    public FuncionarioDBHelper(Context context){
+    public FuncionarioDAO(Context context){
         bdHelper = BDHelper.getBDInstance(context);
         this.context = context;
     }
@@ -60,7 +57,7 @@ public class FuncionarioDBHelper extends AbstractDB<Funcionario> {
 
     @Override
     public ArrayList<Funcionario> selectAll() {
-        CargoDBHelper cargoDBHelper = new CargoDBHelper(context);
+        CargoDAO cargoDAO = new CargoDAO(context);
         db = bdHelper.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_FUNC;
         Cursor cursor = db.rawQuery(query, null);
@@ -77,7 +74,7 @@ public class FuncionarioDBHelper extends AbstractDB<Funcionario> {
             nome = cursor.getString(1);
             cargoID = cursor.getInt(2);
             salario = cursor.getDouble(3);
-            cargoNome = cargoDBHelper.buscarCargo(cargoID);
+            cargoNome = cargoDAO.buscarCargo(cargoID);
             cargo = new Cargo(cargoID, cargoNome);
             f = new Funcionario(id, nome, cargo, salario);
             arrayFuncionarios.add(f);
@@ -86,7 +83,7 @@ public class FuncionarioDBHelper extends AbstractDB<Funcionario> {
                 nome = cursor.getString(1);
                 cargoID = cursor.getInt(2);
                 salario = cursor.getDouble(3);
-                cargoNome = cargoDBHelper.buscarCargo(cargoID);
+                cargoNome = cargoDAO.buscarCargo(cargoID);
                 cargo = new Cargo(cargoID, cargoNome);
                 f = new Funcionario(id, nome, cargo, salario);
                 arrayFuncionarios.add(f);

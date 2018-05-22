@@ -20,7 +20,7 @@ import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity {
     private ListView listaFuncionarios;
-    private FuncionarioDBHelper dbHelperFunc;
+    private FuncionarioDAO dbHelperFunc;
     private Funcionario funcSelecionado;
     private FloatingActionMenu menuPrincipal;
 
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         menuPrincipal = findViewById(R.id.floatingMenu);
-        dbHelperFunc = new FuncionarioDBHelper(this);
+        dbHelperFunc = new FuncionarioDAO(this);
         listaFuncionarios = findViewById(R.id.listFunc);
         registerForContextMenu(listaFuncionarios);
         ViewGroup headerView = (ViewGroup) getLayoutInflater().inflate(R.layout.header, listaFuncionarios, false);

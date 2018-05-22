@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
-public class CargoDBHelper extends AbstractDB<Cargo> {
+public class CargoDAO extends AbstractDAO<Cargo> {
     private static final String TABLE_CARGO = "cargo";
     private static final String COLUM_CARGO_ID = "cargo_id";
     private static final String COLUM_NOME_CARGO = "cargo_nome";
@@ -15,7 +15,7 @@ public class CargoDBHelper extends AbstractDB<Cargo> {
     private SQLiteDatabase db;
     private Context context;
 
-    public CargoDBHelper(Context context){
+    public CargoDAO(Context context){
         bdHelper = BDHelper.getBDInstance(context);
         this.context = context;
     }

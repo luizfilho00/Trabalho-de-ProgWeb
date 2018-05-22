@@ -20,7 +20,7 @@ import java.util.Comparator;
 
 public class GerenciaCargos extends AppCompatActivity {
     private ListView listCargos;
-    private CargoDBHelper dbHelperCargo;
+    private CargoDAO dbHelperCargo;
     private Cargo cargoSelecionado;
     private FloatingActionMenu menuPrincipal;
 
@@ -29,7 +29,7 @@ public class GerenciaCargos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gerencia_cargos);
         menuPrincipal = findViewById(R.id.floatingMenuGC);
-        dbHelperCargo = new CargoDBHelper(this);
+        dbHelperCargo = new CargoDAO(this);
         listCargos = findViewById(R.id.listCargos);
         registerForContextMenu(listCargos);
         ViewGroup headerView = (ViewGroup) getLayoutInflater().inflate(R.layout.headercargos, listCargos, false);
