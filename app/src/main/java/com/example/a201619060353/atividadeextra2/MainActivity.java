@@ -59,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         if (listFunc == null) return;
-        final ArrayAdapter<Funcionario> funcionarioArrayAdapter = new ArrayAdapter<>(this,
-                R.layout.textview_listview, listFunc);
         listaFuncionarios.setAdapter(adapter);
         listaFuncionarios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
