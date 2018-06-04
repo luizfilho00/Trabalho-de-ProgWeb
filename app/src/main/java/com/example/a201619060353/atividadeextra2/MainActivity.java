@@ -126,4 +126,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, GerenciaCargos.class);
         startActivity(intent);
     }
+
+    public void onClickGastosMensais(View view) {
+        Intent intent = new Intent(this, GastosMensais.class);
+        startActivity(intent);
+    }
 }

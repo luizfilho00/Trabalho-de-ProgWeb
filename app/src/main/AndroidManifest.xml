@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".CadastroCargo" />
         <activity android:name=".CadastroFuncionario" />
-        <activity android:name=".GerenciaCargos"></activity>
+        <activity android:name=".GerenciaCargos" />
+        <activity android:name=".GastosMensais"></activity>
     </application>
 
 </manifest>

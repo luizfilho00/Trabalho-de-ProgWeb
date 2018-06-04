@@ -93,4 +93,19 @@ public class FuncionarioDAO extends AbstractDAO<Funcionario> {
         db.close();
         return arrayFuncionarios;
     }
+
+    public ArrayList<Double> selectAllSalario() {
+        db = bdHelper.getReadableDatabase();
+        String query = "SELECT " + COLUM_FUNC_SALARIO + " FROM " + TABLE_FUNC;
+        Cursor cursor = db.rawQuery(query, null);
+        ArrayList<Double> arrayCustos = new ArrayList<Double>();
+        double gastos = 0;
+        while (cursor.moveToNext()){
+            gastos += cursor.getDouble(0);
+        }
+        arrayCustos.add(gastos);
+        cursor.close();
+        db.close();
+        return arrayCustos;
+    }
 }
