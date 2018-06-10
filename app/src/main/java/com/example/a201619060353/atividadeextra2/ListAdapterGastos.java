@@ -10,13 +10,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class ListAdapterGastos extends ArrayAdapter<Double> {
+public class ListAdapterGastos extends ArrayAdapter<Gasto> {
 
     int vg;
-    ArrayList<Double> gastosList;
+    ArrayList<Gasto> gastosList;
     Context context;
 
-    public ListAdapterGastos (Context context, int vg, int id,  ArrayList<Double> gastosList) {
+    public ListAdapterGastos (Context context, int vg, int id, ArrayList<Gasto> gastosList) {
         super(context, vg, id, gastosList);
         this.context = context;
         this.vg = vg;
@@ -34,23 +34,25 @@ public class ListAdapterGastos extends ArrayAdapter<Double> {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             rowView = inflater.inflate(vg, parent, false);
             ViewHolder holder = new ViewHolder();
-            holder.txtTipo = rowView.findViewById(R.id.txtCargo);
-            holder.txtSalario = rowView.findViewById(R.id.txtSalario);
+            holder.txtTipo = rowView.findViewById(R.id.txtTipo);
+            holder.txtSalario = rowView.findViewById(R.id.txtValor);
             rowView.setTag(holder);
         }
 
-        FuncionarioDAO dbHelperFunc = new FuncionarioDAO(context);
-        ArrayList<Funcionario> listFunc = dbHelperFunc.selectAll();
-        listFunc.sort(new Comparator<Funcionario>() {
+        GastosDAO bdGastos = new GastosDAO(context);
+        ArrayList<Gasto> listaGasto = bdGastos.selectAll();
+        listaGasto.sort(new Comparator<Gasto>() {
             @Override
-            public int compare(Funcionario f1, Funcionario f2) {
-                return f1.getNome().compareToIgnoreCase(f2.getNome());
+            public int compare(Gasto g1, Gasto g2) {
+                return Double.compare(g1.getValor(), g2.getValor());
             }
         });
-        String[] items = listFunc.get(position).toString().split("_");
-        ViewHolder holder = (ViewHolder) rowView.getTag();
-        holder.txtTipo.setText(items[1]);
-        holder.txtSalario.setText(items[2]);
+        if (listaGasto.size() > 0){
+            String[] items = listaGasto.get(position).toString().split("_");
+            ViewHolder holder = (ViewHolder) rowView.getTag();
+            holder.txtTipo.setText(items[0]);
+            holder.txtSalario.setText(items[1]);
+        }
         return rowView;
     }
 

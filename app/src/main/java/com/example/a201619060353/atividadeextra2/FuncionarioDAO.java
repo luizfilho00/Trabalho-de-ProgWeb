@@ -51,6 +51,8 @@ public class FuncionarioDAO extends AbstractDAO<Funcionario> {
     public long excluirDoBanco(Funcionario f) {
         db = bdHelper.getReadableDatabase();
         long retorno = db.delete(TABLE_FUNC, COLUM_FUNC_ID + " = "+f.getId(), null);
+        GastosDAO gastosDAO = new GastosDAO(context);
+        gastosDAO.decrementarGasto(new Gasto("Salários"), f.getSalario());
         db.close();
         return retorno;
     }
@@ -94,22 +96,19 @@ public class FuncionarioDAO extends AbstractDAO<Funcionario> {
         return arrayFuncionarios;
     }
 
-    public ArrayList<Double> selectAllSalario() {
+    public double getAllSalario() {
         db = bdHelper.getReadableDatabase();
-        String query = "SELECT " + COLUM_FUNC_SALARIO + " FROM " + TABLE_FUNC + " GROUP BY " + COLUM_FUNC_CARGO;
+        String query = "SELECT " + COLUM_FUNC_SALARIO + " FROM " + TABLE_FUNC;
         Cursor cursor = db.rawQuery(query, null);
-        ArrayList<Double> arrayCustos = new ArrayList<Double>();
-        double gastos = 0;
+        double totalSalarios = 0;
         if (cursor.moveToFirst()) {
-            gastos = cursor.getDouble(0);
-            arrayCustos.add(gastos);
+            totalSalarios += cursor.getDouble(0);
             while (cursor.moveToNext()) {
-                gastos = cursor.getDouble(0);
-                arrayCustos.add(gastos);
+                totalSalarios += cursor.getDouble(0);
             }
         }
         cursor.close();
         db.close();
-        return arrayCustos;
+        return totalSalarios;
     }
 }

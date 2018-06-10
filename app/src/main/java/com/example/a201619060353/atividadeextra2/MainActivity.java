@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         listaFuncionarios.addHeaderView(headerView);
         listaFuncionarios.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         carregarLista();
-
     }
 
     public void onClickCadastrarCargo(View view) {

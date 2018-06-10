@@ -47,8 +47,6 @@ public class GerenciaCargos extends AppCompatActivity {
             }
         });
         if (listCargo == null) return;
-        final ArrayAdapter<Cargo> cargoAdapter = new ArrayAdapter<>(this,
-                R.layout.textview_listview, listCargo);
         listCargos.setAdapter(adapter);
         listCargos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

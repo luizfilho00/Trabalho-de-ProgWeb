@@ -21,6 +21,7 @@ public class CadastroFuncionario extends AppCompatActivity {
     private Spinner spinnerCargo;
     private FuncionarioDAO dbHelperFunc;
     private CargoDAO dbHelperCargo;
+    private GastosDAO dbHelperGasto;
     private String novoCargo = "Novo cargo...";
 
     @Override
@@ -29,6 +30,7 @@ public class CadastroFuncionario extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro_funcionario);
         dbHelperCargo = new CargoDAO(this);
         dbHelperFunc = new FuncionarioDAO(this);
+        dbHelperGasto = new GastosDAO(this);
         nomeFunc = findViewById(R.id.edtNomeFunc);
         salarioFunc = findViewById(R.id.edtSalario);
         spinnerCargo = findViewById(R.id.spinCargo);
@@ -107,6 +109,7 @@ public class CadastroFuncionario extends AppCompatActivity {
             f = new Funcionario(nome, cargo, salario);
             result = dbHelperFunc.inserirNoBanco(f);
             if(result != -1){
+                dbHelperGasto.inserirNoBanco(new Gasto("Salários", f.getSalario()));
                 alert("Funcionário cadastrado com sucesso!");
             }else{
                 alert("Ocorreu um erro, por favor tente novamente.");

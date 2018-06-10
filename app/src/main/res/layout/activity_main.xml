@@ -40,16 +40,6 @@
             android:onClick="onClickGerenciarCargos"/>
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/btnCadastrarCargo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/fab_add"
-            app:fab_colorNormal="@android:color/holo_blue_bright"
-            app:fab_label="Novo Cargo"
-            app:fab_size="mini"
-            android:onClick="onClickCadastrarCargo"/>
-
-        <com.github.clans.fab.FloatingActionButton
             android:id="@+id/btnCadastrarFunc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

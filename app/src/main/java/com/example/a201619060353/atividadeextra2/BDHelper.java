@@ -15,11 +15,11 @@ import java.util.ArrayList;
 public class BDHelper extends SQLiteOpenHelper {
     //Singleton
     private static BDHelper bdInstance = null;
-    private Context bdContext;
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "empresa.db";
     private static final String TABLE_CARGO = "cargo";
     private static final String TABLE_FUNC = "funcionario";
+    private static final String TABLE_GASTO = "gasto";
     private static final String TABLE_CREATE_FUNC =
             "CREATE TABLE IF NOT EXISTS funcionario (" +
                     "func_id integer primary key, " +
@@ -32,11 +32,17 @@ public class BDHelper extends SQLiteOpenHelper {
                     "cargo_id integer primary key, " +
                     "cargo_nome text unique not null);";
 
+    private static final String TABLE_CREATE_GASTO =
+            "CREATE TABLE IF NOT EXISTS gasto (" +
+                    "gasto_id integer primary key, " +
+                    "gasto_tipo text unique not null," +
+                    "gasto_valor real not null);";
+
+
     private SQLiteDatabase db;
 
     private BDHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        bdContext = context;
     }
 
     public static BDHelper getBDInstance(Context context){
@@ -49,6 +55,7 @@ public class BDHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(TABLE_CREATE_CARGO);
         sqLiteDatabase.execSQL(TABLE_CREATE_FUNC);
+        sqLiteDatabase.execSQL(TABLE_CREATE_GASTO);
         this.db = sqLiteDatabase;
     }
 
@@ -56,6 +63,7 @@ public class BDHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_FUNC);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CARGO);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_GASTO);
         onCreate(db);
     }
 }

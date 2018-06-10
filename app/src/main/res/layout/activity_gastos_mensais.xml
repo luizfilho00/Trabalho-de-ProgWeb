@@ -12,4 +12,31 @@
         android:id="@+id/listGastos">
     </ListView>
 
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/floatingMenuGC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginTop="414dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.92"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.839">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/btnCadastrarGasto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/fab_add"
+            app:fab_colorNormal="@android:color/holo_green_dark"
+            app:fab_label="Nova despesa"
+            app:fab_size="mini"
+            android:onClick="onClickCadastrarGasto"/>
+
+    </com.github.clans.fab.FloatingActionMenu>
+
 </android.support.constraint.ConstraintLayout>
