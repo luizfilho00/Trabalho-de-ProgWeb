@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -16,8 +17,10 @@ import java.util.Comparator;
 
 public class CadastroFuncionario extends AppCompatActivity {
     private int idFunc = -1;
+    private String dataInicio;
     private EditText nomeFunc;
     private EditText salarioFunc;
+    private DatePicker dtPickData;
     private Spinner spinnerCargo;
     private FuncionarioDAO dbHelperFunc;
     private CargoDAO dbHelperCargo;
@@ -33,7 +36,9 @@ public class CadastroFuncionario extends AppCompatActivity {
         dbHelperGasto = new GastosDAO(this);
         nomeFunc = findViewById(R.id.edtNomeFunc);
         salarioFunc = findViewById(R.id.edtSalario);
+        dtPickData = findViewById(R.id.dtPickFunc);
         spinnerCargo = findViewById(R.id.spinCargo);
+        dataInicio = dtPickData.getDayOfMonth() + "/" + (dtPickData.getMonth()+1) + "/" + dtPickData.getYear();
         carregarDados();
     }
 
@@ -62,6 +67,12 @@ public class CadastroFuncionario extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
+        });
+        dtPickData.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                dataInicio = dayOfMonth + "/" + (monthOfYear+1) + "/" + year;
+            }
         });
         if (getIntent().getStringExtra("funcao") != null){
             if(getIntent().getStringExtra("funcao").equals("atualizar")){
@@ -96,9 +107,10 @@ public class CadastroFuncionario extends AppCompatActivity {
 
         if (getIntent().getStringExtra("funcao") != null){
             if (getIntent().getStringExtra("funcao").equals("atualizar")){
-                f = new Funcionario(idFunc, nome, cargo, salario);
+                f = new Funcionario(idFunc, nome, cargo, dataInicio, salario);
                 result = dbHelperFunc.alterarNoBanco(f);
                 if(result != -1){
+                    //TODO Criar método para quando alterar salario do funcionario, alterar o gasto com 'Salários'
                     alert("Funcionário alterado com sucesso!");
                 }else{
                     alert("Ocorreu um erro, por favor tente novamente.");
@@ -106,10 +118,10 @@ public class CadastroFuncionario extends AppCompatActivity {
             }
         }
         else{
-            f = new Funcionario(nome, cargo, salario);
+            f = new Funcionario(nome, cargo, dataInicio, salario);
             result = dbHelperFunc.inserirNoBanco(f);
             if(result != -1){
-                dbHelperGasto.inserirNoBanco(new Gasto("Salários", f.getSalario()));
+                dbHelperGasto.inserirNoBanco(new Gasto("Salários", Datas.PAGAMENTO_FUNC,0, f.getSalario()));
                 alert("Funcionário cadastrado com sucesso!");
             }else{
                 alert("Ocorreu um erro, por favor tente novamente.");

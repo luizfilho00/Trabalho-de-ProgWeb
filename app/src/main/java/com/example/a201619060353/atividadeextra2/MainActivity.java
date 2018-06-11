@@ -38,11 +38,6 @@ public class MainActivity extends AppCompatActivity {
         carregarLista();
     }
 
-    public void onClickCadastrarCargo(View view) {
-        Intent intent = new Intent(this, CadastroCargo.class);
-        startActivity(intent);
-    }
-
     public void onClickCadastrarFunc(View view) {
         Intent intent = new Intent(this, CadastroFuncionario.class);
         startActivity(intent);

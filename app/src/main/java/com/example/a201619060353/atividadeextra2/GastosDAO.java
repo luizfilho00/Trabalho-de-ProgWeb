@@ -6,11 +6,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class GastosDAO extends AbstractDAO<Gasto> {
     private static final String TABLE_GASTO = "gasto";
     private static final String COLUM_GASTO_ID = "gasto_id";
     private static final String COLUM_TIPO_GASTO = "gasto_tipo";
+    private static final String COLUM_DATA_PAGAMENTO = "gasto_data";
+    private static final String COLUM_FLAG_PAGO = "gasto_pago";
     private static final String COLUM_VALOR_GASTO = "gasto_valor";
     private BDHelper bdHelper;
     private SQLiteDatabase db;
@@ -46,6 +49,8 @@ public class GastosDAO extends AbstractDAO<Gasto> {
         }
         ContentValues values = new ContentValues();
         values.put(COLUM_TIPO_GASTO, g.getTipo());
+        values.put(COLUM_DATA_PAGAMENTO, g.getData());
+        values.put(COLUM_FLAG_PAGO, g.getPago());
         values.put(COLUM_VALOR_GASTO, g.getValor());
         long retornoDB = db.insert(TABLE_GASTO, null, values);
         db.close();
@@ -57,6 +62,8 @@ public class GastosDAO extends AbstractDAO<Gasto> {
         db = bdHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUM_TIPO_GASTO, g.getTipo());
+        values.put(COLUM_DATA_PAGAMENTO, g.getData());
+        values.put(COLUM_FLAG_PAGO, g.getPago());
         values.put(COLUM_VALOR_GASTO, g.getValor());
         long retorno = db.update(TABLE_GASTO, values,COLUM_GASTO_ID + " = " + g.getId(), null);
         db.close();
@@ -81,6 +88,8 @@ public class GastosDAO extends AbstractDAO<Gasto> {
             novoValor = valorNoBanco - decremento;
         ContentValues values = new ContentValues();
         values.put(COLUM_TIPO_GASTO, g.getTipo());
+        values.put(COLUM_DATA_PAGAMENTO, g.getData());
+        values.put(COLUM_FLAG_PAGO, g.getPago());
         values.put(COLUM_VALOR_GASTO, novoValor);
         long retorno = db.update(TABLE_GASTO, values,COLUM_GASTO_ID + " = " + id, null);
         cursor.close();
@@ -101,22 +110,26 @@ public class GastosDAO extends AbstractDAO<Gasto> {
         db = bdHelper.getReadableDatabase();
         String query = "SELECT * FROM "+ TABLE_GASTO;
         Cursor cursor = db.rawQuery(query, null);
-        int id;
-        String tipo;
+        int id, pago;
+        String tipo, data = "";
         double valor;
         Gasto g;
         ArrayList<Gasto> arrayGastos = new ArrayList<>();
         if (cursor.moveToFirst()){
             id = cursor.getInt(0);
             tipo = cursor.getString(1);
-            valor = cursor.getDouble(2);
-            g = new Gasto(id, tipo, valor);
+            data = cursor.getString(2);
+            pago = cursor.getInt(3);
+            valor = cursor.getDouble(4);
+            g = new Gasto(id, tipo, data, pago, valor);
             arrayGastos.add(g);
             while(cursor.moveToNext()) {
                 id = cursor.getInt(0);
                 tipo = cursor.getString(1);
-                valor = cursor.getDouble(2);
-                g = new Gasto(id, tipo, valor);
+                data = cursor.getString(2);
+                pago = cursor.getInt(3);
+                valor = cursor.getDouble(4);
+                g = new Gasto(id, tipo, data, pago, valor);
                 arrayGastos.add(g);
             }
         }
@@ -128,6 +141,6 @@ public class GastosDAO extends AbstractDAO<Gasto> {
     public Gasto selectAllSalario(){
         FuncionarioDAO funcDAO = new FuncionarioDAO(context);
         double gastosSalario = funcDAO.getAllSalario();
-        return new Gasto("Salários", gastosSalario);
+        return new Gasto("Salários", Datas.PAGAMENTO_FUNC, 0, gastosSalario);
     }
 }

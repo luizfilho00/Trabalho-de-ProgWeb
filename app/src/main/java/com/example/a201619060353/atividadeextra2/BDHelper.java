@@ -25,6 +25,7 @@ public class BDHelper extends SQLiteOpenHelper {
                     "func_id integer primary key, " +
                     "func_nome text not null, " +
                     "func_cargo integer not null," +
+                    "func_data_inicio text not null," +
                     "func_salario real not null, " +
                     "foreign key(func_cargo) references cargo(cargo_id));";
     private static final String TABLE_CREATE_CARGO =
@@ -36,6 +37,8 @@ public class BDHelper extends SQLiteOpenHelper {
             "CREATE TABLE IF NOT EXISTS gasto (" +
                     "gasto_id integer primary key, " +
                     "gasto_tipo text unique not null," +
+                    "gasto_data text not null," +
+                    "gasto_pago integer not null," +
                     "gasto_valor real not null);";
 
 

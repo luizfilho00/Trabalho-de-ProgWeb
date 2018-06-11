@@ -1,5 +1,6 @@
 package com.example.a201619060353.atividadeextra2;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -8,22 +9,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class GastosMensais extends AppCompatActivity {
     private ListView listGastos;
     private GastosDAO bdGastos;
     private Gasto gastoSelecionado;
+    private FuncionarioDAO bdFunc;
+    private CheckBox gastoPago;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gastos_mensais);
-
         bdGastos = new GastosDAO(this);
+        bdFunc = new FuncionarioDAO(this);
         listGastos = findViewById(R.id.listGastos);
         carregarLista();
         registerForContextMenu(listGastos);
@@ -32,11 +37,7 @@ public class GastosMensais extends AppCompatActivity {
     }
 
     private void carregarLista() {
-        final ArrayList<Gasto> arrayGastos = new ArrayList<>();
-        Gasto gastoSalarios = bdGastos.selectAllSalario();
-        arrayGastos.add(gastoSalarios);
-        System.out.println("\n\n CARREGOOOOOOOOOOOOOOOOU LISTAAAAAAAAAAAAAAAAAAAAAAAAA");
-        System.out.println(gastoSalarios.toString());
+        final ArrayList<Gasto> arrayGastos = bdGastos.selectAll();
         ListAdapterGastos adapter = new ListAdapterGastos(this, R.layout.rowlayoutgastos, R.id.txtTipo, arrayGastos);
         listGastos.setAdapter(adapter);
         listGastos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -57,6 +58,10 @@ public class GastosMensais extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 long retornoDB;
+                if (gastoSelecionado.getTipo().equals("Salários") && bdFunc.getQtdFunc() > 0){
+                    alert("Despesa não pode ser excluída. Ainda existem funcionários cadastrados!");
+                    return false;
+                }
                 retornoDB = bdGastos.excluirDoBanco(gastoSelecionado);
                 carregarLista();
                 if(retornoDB != -1){
@@ -88,5 +93,6 @@ public class GastosMensais extends AppCompatActivity {
     }
 
     public void onClickCadastrarGasto(View view) {
+        startActivity(new Intent(this, CadastroGastos.class));
     }
 }

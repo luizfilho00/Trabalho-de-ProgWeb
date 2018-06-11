@@ -14,20 +14,23 @@ public class Funcionario implements Serializable {
     private String nome;
     private double salario;
     private Cargo cargo;
+    private String dataPagamento;
     private int cargoID;
     private String cargoNome;
 
-    public Funcionario(int id, String nome, Cargo cargo, double salario){
+    public Funcionario(int id, String nome, Cargo cargo, String dataPagamento, double salario){
         this.id = id;
         this.nome = nome;
         this.cargo = cargo;
+        this.dataPagamento = dataPagamento;
         this.salario = salario;
     }
 
-    public Funcionario(String nome, Cargo cargo, double salario){
+    public Funcionario(String nome, Cargo cargo, String dataPagamento, double salario){
         this.nome = nome;
-        this.salario = salario;
         this.cargo = cargo;
+        this.dataPagamento = dataPagamento;
+        this.salario = salario;
     }
 
     public int getId() {
@@ -38,6 +41,9 @@ public class Funcionario implements Serializable {
         return nome;
     }
 
+    public String getDataPagamento() {
+        return dataPagamento;
+    }
     public double getSalario() {
         return salario;
     }
@@ -49,6 +55,6 @@ public class Funcionario implements Serializable {
     @Override
     public String toString() {
         return nome + "_" + cargo.getNomeDoCargo()
-                + "_" + "R$"+ new DecimalFormat(".00").format(salario);
+                + "_" + dataPagamento + "_" + "R$"+ new DecimalFormat(".00").format(salario);
     }
 }

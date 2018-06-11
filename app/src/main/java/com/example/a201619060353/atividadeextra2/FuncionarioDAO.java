@@ -12,6 +12,7 @@ public class FuncionarioDAO extends AbstractDAO<Funcionario> {
     private static final String COLUM_FUNC_ID = "func_id";
     private static final String COLUM_FUNC_NOME = "func_nome";
     private static final String COLUM_FUNC_CARGO = "func_cargo";
+    private static final String COLUM_FUNC_DATAINICIO = "func_data_inicio";
     private static final String COLUM_FUNC_SALARIO = "func_salario";
     private BDHelper bdHelper;
     private SQLiteDatabase db;
@@ -27,8 +28,9 @@ public class FuncionarioDAO extends AbstractDAO<Funcionario> {
         db = bdHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUM_FUNC_NOME, f.getNome());
-        values.put(COLUM_FUNC_SALARIO, f.getSalario());
         values.put(COLUM_FUNC_CARGO, f.getCargo().getId());
+        values.put(COLUM_FUNC_DATAINICIO, f.getDataPagamento());
+        values.put(COLUM_FUNC_SALARIO, f.getSalario());
         long retornoDB = db.insert(TABLE_FUNC, null, values);
         db.close();
 
@@ -41,6 +43,7 @@ public class FuncionarioDAO extends AbstractDAO<Funcionario> {
         ContentValues values = new ContentValues();
         values.put(COLUM_FUNC_NOME, f.getNome());
         values.put(COLUM_FUNC_SALARIO, f.getSalario());
+        values.put(COLUM_FUNC_DATAINICIO, f.getDataPagamento());
         values.put(COLUM_FUNC_CARGO, f.getCargo().getId());
         long retorno = db.update(TABLE_FUNC, values,COLUM_FUNC_ID + " = "+f.getId(), null);
         db.close();
@@ -64,7 +67,7 @@ public class FuncionarioDAO extends AbstractDAO<Funcionario> {
         String query = "SELECT * FROM " + TABLE_FUNC;
         Cursor cursor = db.rawQuery(query, null);
         int id;
-        String nome;
+        String nome, dataPgto;
         int cargoID;
         double salario;
         String cargoNome;
@@ -75,19 +78,21 @@ public class FuncionarioDAO extends AbstractDAO<Funcionario> {
             id = cursor.getInt(0);
             nome = cursor.getString(1);
             cargoID = cursor.getInt(2);
-            salario = cursor.getDouble(3);
+            dataPgto = cursor.getString(3);
+            salario = cursor.getDouble(4);
             cargoNome = cargoDAO.buscarCargo(cargoID);
             cargo = new Cargo(cargoID, cargoNome);
-            f = new Funcionario(id, nome, cargo, salario);
+            f = new Funcionario(id, nome, cargo, dataPgto, salario);
             arrayFuncionarios.add(f);
             while(cursor.moveToNext()) {
                 id = cursor.getInt(0);
                 nome = cursor.getString(1);
                 cargoID = cursor.getInt(2);
-                salario = cursor.getDouble(3);
+                dataPgto = cursor.getString(3);
+                salario = cursor.getDouble(4);
                 cargoNome = cargoDAO.buscarCargo(cargoID);
                 cargo = new Cargo(cargoID, cargoNome);
-                f = new Funcionario(id, nome, cargo, salario);
+                f = new Funcionario(id, nome, cargo, dataPgto, salario);
                 arrayFuncionarios.add(f);
             }
         }
@@ -110,5 +115,21 @@ public class FuncionarioDAO extends AbstractDAO<Funcionario> {
         cursor.close();
         db.close();
         return totalSalarios;
+    }
+
+    public int getQtdFunc() {
+        db = bdHelper.getReadableDatabase();
+        String query = "SELECT " + COLUM_FUNC_ID + " FROM " + TABLE_FUNC;
+        Cursor cursor = db.rawQuery(query, null);
+        int qntdFunc = 0;
+        if (cursor.moveToFirst()) {
+            qntdFunc += cursor.getInt(0);
+            while (cursor.moveToNext()) {
+                qntdFunc += cursor.getInt(0);
+            }
+        }
+        cursor.close();
+        db.close();
+        return qntdFunc;
     }
 }

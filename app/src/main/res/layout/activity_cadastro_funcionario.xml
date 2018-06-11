@@ -11,85 +11,109 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="25dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="88dp"
         android:text="Nome:"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/edtNomeFunc"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edtNomeFunc"
-        android:inputType="textCapWords"
-        android:layout_width="wrap_content"
+        android:layout_width="247dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="72dp"
-        android:layout_marginTop="90dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="80dp"
         android:hint="Nome do funcionário"
+        android:inputType="textCapWords"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="26dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="45dp"
         android:text="Cargo:"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/spinCargo"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Spinner
         android:id="@+id/spinCargo"
-        android:layout_width="178dp"
+        android:layout_width="247dp"
         android:layout_height="37dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginTop="27dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/edtNomeFunc">
 
     </Spinner>
 
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="18dp"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="40dp"
-        android:text="Salário:"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/edtSalario"
-        app:layout_constraintHorizontal_bias="0.571"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="70dp"
+        android:text="Início: "
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    <DatePicker
+        android:id="@+id/dtPickFunc"
+        android:layout_width="249dp"
+        android:layout_height="138dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        android:minDate="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/spinCargo" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="95dp"
+        android:text="Salário:"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
     <EditText
         android:id="@+id/edtSalario"
-        android:layout_width="177dp"
+        android:layout_width="249dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="73dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
         android:hint="R$"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinCargo" />
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/dtPickFunc" />
 
     <Button
         android:id="@+id/btnVariavel"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="100dp"
-        android:layout_marginTop="93dp"
+        android:layout_marginTop="29dp"
         android:onClick="salvarFuncionario"
         android:text="Cadastrar"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtSalario" />
 

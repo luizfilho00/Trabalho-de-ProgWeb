@@ -25,6 +25,7 @@ public class ListAdapter extends ArrayAdapter<Funcionario> {
     static class ViewHolder{
         public TextView txtNome;
         public TextView txtCargo;
+        public TextView txtDataInicio;
         public TextView txtSalario;
     }
 
@@ -36,6 +37,7 @@ public class ListAdapter extends ArrayAdapter<Funcionario> {
             ViewHolder holder = new ViewHolder();
             holder.txtNome = rowView.findViewById(R.id.txtNome);
             holder.txtCargo = rowView.findViewById(R.id.txtCargo);
+            holder.txtDataInicio = rowView.findViewById(R.id.txtInicioTrabalho);
             holder.txtSalario = rowView.findViewById(R.id.txtSalario);
             rowView.setTag(holder);
         }
@@ -52,7 +54,8 @@ public class ListAdapter extends ArrayAdapter<Funcionario> {
         ViewHolder holder = (ViewHolder) rowView.getTag();
         holder.txtNome.setText(items[0]);
         holder.txtCargo.setText(items[1]);
-        holder.txtSalario.setText(items[2]);
+        holder.txtDataInicio.setText(items[2]);
+        holder.txtSalario.setText(items[3]);
         return rowView;
     }
 
