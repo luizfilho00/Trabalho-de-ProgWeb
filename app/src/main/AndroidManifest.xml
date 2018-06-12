@@ -17,9 +17,9 @@
         <activity android:name=".CadastroCargo" />
         <activity android:name=".CadastroFuncionario" />
         <activity android:name=".modelo.GerenciaCargos" />
-        <activity android:name=".GastosMensais" />
+        <activity android:name=".modelo.GastosMensais" />
         <activity android:name=".CadastroGastos" />
-        <activity android:name=".modelo.MainActivity" />
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".modelo.Login"
             android:label="@string/app_name">
@@ -30,6 +30,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".modelo.PrimeiroLogin"></activity>
+
+        <receiver android:name=".modelo.AlertReceiver"/>
     </application>
 
 </manifest>

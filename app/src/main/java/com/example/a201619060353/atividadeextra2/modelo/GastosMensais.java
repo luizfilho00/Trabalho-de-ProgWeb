@@ -1,4 +1,4 @@
-package com.example.a201619060353.atividadeextra2;
+package com.example.a201619060353.atividadeextra2.modelo;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,10 +12,11 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ListView;
 
+import com.example.a201619060353.atividadeextra2.CadastroGastos;
+import com.example.a201619060353.atividadeextra2.ListAdapterGastos;
+import com.example.a201619060353.atividadeextra2.R;
 import com.example.a201619060353.atividadeextra2.dados.Gasto;
-import com.example.a201619060353.atividadeextra2.modelo.Alert;
-import com.example.a201619060353.atividadeextra2.modelo.FuncionarioDAO;
-import com.example.a201619060353.atividadeextra2.modelo.GastosDAO;
+import com.github.clans.fab.FloatingActionMenu;
 
 import java.util.ArrayList;
 
@@ -25,11 +26,13 @@ public class GastosMensais extends AppCompatActivity {
     private Gasto gastoSelecionado;
     private FuncionarioDAO bdFunc;
     private CheckBox gastoPago;
+    private FloatingActionMenu botaoPrincipal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gastos_mensais);
+        botaoPrincipal = findViewById(R.id.floatingMenuGastos);
         bdGastos = new GastosDAO(this);
         bdFunc = new FuncionarioDAO(this);
         listGastos = findViewById(R.id.listGastos);
@@ -106,6 +109,7 @@ public class GastosMensais extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         carregarLista();
+        botaoPrincipal.close(false);
     }
 
     public void onClickCadastrarGasto(View view) {

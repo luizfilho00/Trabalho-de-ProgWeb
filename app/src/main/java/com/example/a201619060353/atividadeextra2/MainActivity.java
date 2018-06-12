@@ -1,4 +1,4 @@
-package com.example.a201619060353.atividadeextra2.modelo;
+package com.example.a201619060353.atividadeextra2;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,11 +11,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.a201619060353.atividadeextra2.CadastroFuncionario;
-import com.example.a201619060353.atividadeextra2.GastosMensais;
-import com.example.a201619060353.atividadeextra2.ListAdapter;
-import com.example.a201619060353.atividadeextra2.R;
 import com.example.a201619060353.atividadeextra2.dados.Funcionario;
+import com.example.a201619060353.atividadeextra2.modelo.Alert;
+import com.example.a201619060353.atividadeextra2.modelo.FuncionarioDAO;
+import com.example.a201619060353.atividadeextra2.modelo.GastosMensais;
+import com.example.a201619060353.atividadeextra2.modelo.GerenciaCargos;
 import com.github.clans.fab.FloatingActionMenu;
 
 import java.util.ArrayList;

@@ -1,5 +1,9 @@
 package com.example.a201619060353.atividadeextra2;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +14,10 @@ import android.widget.EditText;
 
 import com.example.a201619060353.atividadeextra2.dados.Gasto;
 import com.example.a201619060353.atividadeextra2.modelo.Alert;
+import com.example.a201619060353.atividadeextra2.modelo.AlertReceiver;
 import com.example.a201619060353.atividadeextra2.modelo.GastosDAO;
+
+import java.util.Calendar;
 
 public class CadastroGastos extends AppCompatActivity {
     private EditText edtTipo, edtValor;
@@ -18,6 +25,7 @@ public class CadastroGastos extends AppCompatActivity {
     private GastosDAO bdGastos;
     private CheckBox flagPago;
     private int idGastoSelecionado;
+    private Calendar c;
     String data;
 
     @Override
@@ -29,15 +37,31 @@ public class CadastroGastos extends AppCompatActivity {
         edtValor = findViewById(R.id.edtValorDespesa);
         flagPago = findViewById(R.id.checkBoxPago);
         data = dtPickData.getDayOfMonth() + "/" + (dtPickData.getMonth()+1) + "/" + dtPickData.getYear();
+        c = Calendar.getInstance();
+        c.set(Calendar.DAY_OF_MONTH, dtPickData.getDayOfMonth());
+        c.set(Calendar.MONTH, dtPickData.getMonth()-1);
+        c.set(Calendar.YEAR, dtPickData.getYear());
         dtPickData.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 data = dayOfMonth + "/" + (monthOfYear+1) + "/" + year;
+                c = Calendar.getInstance();
+                c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                c.set(Calendar.MONTH, monthOfYear-1);
+                c.set(Calendar.YEAR, year);
             }
         });
         bdGastos = new GastosDAO(this);
-
         preencheForm();
+    }
+
+    public void startAlarm(Calendar c){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+
+        assert alarmManager != null;
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
 
     private void preencheForm(){
@@ -101,6 +125,9 @@ public class CadastroGastos extends AppCompatActivity {
         }
 
         finish();
+        /// Se a despesa cadastrada já foi paga, não há necessidade de criar uma notificação para a data de vencimento.
+        if (!flagPago.isChecked())
+            startAlarm(c);
     }
 
     private boolean isNull(){

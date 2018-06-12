@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.a201619060353.atividadeextra2.MainActivity;
 import com.example.a201619060353.atividadeextra2.R;
 import com.example.a201619060353.atividadeextra2.dados.Usuario;
 

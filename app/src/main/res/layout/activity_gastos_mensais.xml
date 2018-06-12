@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GastosMensais">
+    tools:context=".modelo.GastosMensais">
 
     <ListView
         android:layout_width="wrap_content"
@@ -13,7 +13,7 @@
     </ListView>
 
     <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/floatingMenuGC"
+        android:id="@+id/floatingMenuGastos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
