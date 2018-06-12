@@ -1,10 +1,12 @@
 package com.example.a201619060353.atividadeextra2.modelo;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.a201619060353.atividadeextra2.Login;
 import com.example.a201619060353.atividadeextra2.R;
 import com.example.a201619060353.atividadeextra2.dados.Usuario;
 
@@ -52,7 +54,7 @@ public class PrimeiroLogin extends AppCompatActivity {
         else
             Alert.print(this, "Usuário alterado com sucesso!");
 
-        finish();
+        startActivity(new Intent(this, Login.class));
     }
 
     private boolean isNull(){

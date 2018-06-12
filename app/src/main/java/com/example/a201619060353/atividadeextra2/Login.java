@@ -1,4 +1,4 @@
-package com.example.a201619060353.atividadeextra2.modelo;
+package com.example.a201619060353.atividadeextra2;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,10 @@ import android.widget.EditText;
 import com.example.a201619060353.atividadeextra2.MainActivity;
 import com.example.a201619060353.atividadeextra2.R;
 import com.example.a201619060353.atividadeextra2.dados.Usuario;
+import com.example.a201619060353.atividadeextra2.modelo.Alert;
+import com.example.a201619060353.atividadeextra2.modelo.FingerPrint;
+import com.example.a201619060353.atividadeextra2.modelo.PrimeiroLogin;
+import com.example.a201619060353.atividadeextra2.modelo.UsuarioDAO;
 
 public class Login extends AppCompatActivity {
     private EditText edtLogin, edtSenha;

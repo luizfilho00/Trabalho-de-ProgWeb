@@ -41,16 +41,29 @@ public class CadastroGastos extends AppCompatActivity {
         c.set(Calendar.DAY_OF_MONTH, dtPickData.getDayOfMonth());
         c.set(Calendar.MONTH, dtPickData.getMonth()-1);
         c.set(Calendar.YEAR, dtPickData.getYear());
-        dtPickData.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        dtPickData.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
             @Override
-            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                data = dayOfMonth + "/" + (monthOfYear+1) + "/" + year;
+            public void onDateChanged(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                data = dayOfMonth + "/" + (month+1) + "/" + year;
                 c = Calendar.getInstance();
                 c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                c.set(Calendar.MONTH, monthOfYear-1);
+                c.set(Calendar.MONTH, month-1);
                 c.set(Calendar.YEAR, year);
+
             }
         });
+//        dtPickData.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+//            @Override
+//            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//                data = dayOfMonth + "/" + (monthOfYear+1) + "/" + year;
+//                c = Calendar.getInstance();
+//                c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//                c.set(Calendar.MONTH, monthOfYear-1);
+//                c.set(Calendar.YEAR, year);
+//            }
+//        });
         bdGastos = new GastosDAO(this);
         preencheForm();
     }

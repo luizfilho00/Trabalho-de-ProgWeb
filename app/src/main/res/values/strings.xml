@@ -112,4 +112,7 @@
         completions."
     </string>
     <string name="textoPrimeiroLogin">"Como este é seu primeiro login, você deve alterar os dados de login para seus próprios dados! Lembre-se de escolher uma senha forte e que este login garante acesso à todas funcionalidades do aplicativo.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
