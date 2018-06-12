@@ -22,7 +22,7 @@
         <activity android:name=".CadastroGastos" />
         <activity android:name=".MainActivity" />
         <activity
-            android:name=".modelo.FingerPrint"
+            android:name=".Login"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +34,7 @@
 
         <receiver android:name=".modelo.AlertReceiver" />
 
-        <activity android:name=".Login"/>
+        <activity android:name=".FingerPrint"/>
     </application>
 
 </manifest>

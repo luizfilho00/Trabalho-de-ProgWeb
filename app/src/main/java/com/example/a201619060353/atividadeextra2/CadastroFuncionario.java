@@ -21,6 +21,7 @@ import com.example.a201619060353.atividadeextra2.modelo.FuncionarioDAO;
 import com.example.a201619060353.atividadeextra2.modelo.GastosDAO;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
 
 public class CadastroFuncionario extends AppCompatActivity {
@@ -77,12 +78,21 @@ public class CadastroFuncionario extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
-        dtPickData.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        dtPickData.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
             @Override
-            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                dataInicio = dayOfMonth + "/" + (monthOfYear+1) + "/" + year;
+            public void onDateChanged(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                dataInicio = dayOfMonth + "/" + (month+1) + "/" + year;
+
             }
         });
+//        dtPickData.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+//            @Override
+//            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//                dataInicio = dayOfMonth + "/" + (monthOfYear+1) + "/" + year;
+//            }
+//        });
         if (getIntent().getStringExtra("funcao") != null){
             if(getIntent().getStringExtra("funcao").equals("atualizar")){
                 Bundle b = getIntent().getExtras();

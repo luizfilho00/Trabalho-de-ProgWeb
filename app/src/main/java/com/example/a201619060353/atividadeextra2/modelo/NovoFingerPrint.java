@@ -1,27 +1,14 @@
 package com.example.a201619060353.atividadeextra2.modelo;
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.KeyguardManager;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-
-import com.example.a201619060353.atividadeextra2.Login;
-import com.example.a201619060353.atividadeextra2.MainActivity;
-import com.example.a201619060353.atividadeextra2.R;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -38,7 +25,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
-public class FingerPrint extends AppCompatActivity {
+public class NovoFingerPrint {
     private FingerprintManager fingerprintManager;
     private KeyguardManager keyguardManager;
     private KeyStore keyStore;
@@ -48,33 +35,23 @@ public class FingerPrint extends AppCompatActivity {
     private FingerprintManager.CryptoObject cryptoObject;
     private FingerprintHandler helper;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_finger_print);
-
-        UsuarioDAO bdUSer = new UsuarioDAO(this);
-        if (bdUSer.getUser() == null){
-            startActivity(new Intent(this, Login.class));
-            return;
-        }
-
-        keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
-        fingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
+    public NovoFingerPrint(Context context){
+        keyguardManager = (KeyguardManager) context.getSystemService(context.KEYGUARD_SERVICE);
+        fingerprintManager = (FingerprintManager) context.getSystemService(context.FINGERPRINT_SERVICE);
 
         if (!keyguardManager.isKeyguardSecure()) {
-            Alert.print(this,"Lock screen está desabilitado!");
+            Alert.print(context,"Lock screen está desabilitado!");
             return;
         }
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT)
-                                                            != PackageManager.PERMISSION_GRANTED) {
-            Alert.print(this,"Permissão para uso de autenticação por digital negada!");
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT)
+                != PackageManager.PERMISSION_GRANTED) {
+            Alert.print(context,"Permissão para uso de autenticação por digital negada!");
             return;
         }
 
         if (!fingerprintManager.hasEnrolledFingerprints()) {
-            Alert.print(this,"Cadastre pelo menos uma digital em suas configurações de segurança.");
+            Alert.print(context,"Cadastre pelo menos uma digital em suas configurações de segurança.");
             return;
         }
 
@@ -82,7 +59,7 @@ public class FingerPrint extends AppCompatActivity {
 
         if (cipherInit()) {
             cryptoObject = new FingerprintManager.CryptoObject(cipher);
-            helper = new FingerprintHandler(this);
+            helper = new FingerprintHandler(context);
             helper.startAuth(fingerprintManager, cryptoObject);
         }
     }
@@ -145,20 +122,5 @@ public class FingerPrint extends AppCompatActivity {
                 | NoSuchAlgorithmException | InvalidKeyException e) {
             throw new RuntimeException("Falha ao iniciar Cipher", e);
         }
-    }
-
-    public void onClickUtilizarSenha(View view) {
-        startActivity(new Intent(this, Login.class));
-    }
-
-    public void onClickCancelar(View view){
-        finish();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (helper.getLogado())
-            finish();
     }
 }

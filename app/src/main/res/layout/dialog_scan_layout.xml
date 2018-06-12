@@ -4,23 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".modelo.FingerPrint">
+    tools:context=".FingerPrint">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/main_icon"
-            android:layout_gravity="center" />
-        <View
-            android:layout_width="1dp"
-            android:layout_height="20dp"
-            android:text=""
-            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,6 +25,10 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:maxWidth="60dp"
+            android:maxHeight="60dp"
+            android:scaleType="fitCenter"
             android:layout_gravity="center"
             android:src="@drawable/android_studio_2_fingerprint_icon"/>
 
@@ -51,7 +44,7 @@
             android:layout_gravity="center"
             android:orientation="horizontal">
             <Button
-                android:id="@+id/btnCancelarScan"
+                android:id="@+id/btnCancelarScanD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onClickCancelar"
@@ -64,7 +57,7 @@
                 />
 
             <Button
-                android:id="@+id/btnUsarSenha"
+                android:id="@+id/btnUsarSenhaD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onClickUtilizarSenha"

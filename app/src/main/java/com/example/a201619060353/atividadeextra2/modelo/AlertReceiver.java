@@ -15,6 +15,7 @@ public class AlertReceiver extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent,0);
         NotificationCompat.Builder nb = notificationHelper.getChannelNotification("Pagamento de contas",
                 "Você tem uma conta com vencimento para hoje.", pendingIntent);
+        nb.setAutoCancel(true);
         notificationHelper.getNotificationManager().notify(1, nb.build());
     }
 }
