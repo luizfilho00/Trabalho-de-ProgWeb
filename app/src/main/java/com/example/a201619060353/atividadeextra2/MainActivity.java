@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 .setCancelable(false)
                 .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        finish();
+                        startActivity(new Intent(getApplicationContext(), Login.class));
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {

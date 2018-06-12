@@ -89,16 +89,16 @@ public class Login extends AppCompatActivity {
         NovoFingerPrint fingerPrint = new NovoFingerPrint(this);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
     public void onClickUsarDigital(View view) {
         if (!existeUsuarioCadastrado()){
             Alert.print(this, "Não existem usuários cadastrados ainda!");
             return;
         }
         scanDialog();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }
