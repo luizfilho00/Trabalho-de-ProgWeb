@@ -1,6 +1,7 @@
 package com.example.a201619060353.atividadeextra2;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -11,7 +12,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,8 +44,25 @@ public class GastosMensais extends AppCompatActivity {
 
     private void carregarLista() {
         final ArrayList<Gasto> arrayGastos = bdGastos.selectAll();
+        double totalGastos = 0;
+        for (Gasto g : arrayGastos)
+            totalGastos += g.getValor();
+        arrayGastos.add(new Gasto("Total", "", -1, totalGastos));
         ListAdapterGastos adapter = new ListAdapterGastos(this, R.layout.rowlayoutgastos, R.id.txtTipo, arrayGastos);
         listGastos.setAdapter(adapter);
+        listGastos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+                Intent intent = new Intent(GastosMensais.this, CadastroGastos.class);
+                if (pos == 0 || pos == arrayGastos.size()) return;
+                gastoSelecionado = arrayGastos.get(pos-1);
+                Bundle dadosFunc = new Bundle();
+                dadosFunc.putSerializable("chave_gasto", gastoSelecionado);
+                intent.putExtra("funcao", "atualizar");
+                intent.putExtras(dadosFunc);
+                startActivity(intent);
+            }
+        });
         listGastos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long l) {
@@ -59,16 +82,16 @@ public class GastosMensais extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 long retornoDB;
                 if (gastoSelecionado.getTipo().equals("Salários") && bdFunc.getQtdFunc() > 0){
-                    alert("Despesa não pode ser excluída. Ainda existem funcionários cadastrados!");
+                    Alert.print(getApplicationContext(), "Despesa não pode ser excluída. Ainda existem funcionários cadastrados!");
                     return false;
                 }
                 retornoDB = bdGastos.excluirDoBanco(gastoSelecionado);
                 carregarLista();
                 if(retornoDB != -1){
-                    alert("Despesa excluída com sucesso!");
+                    Alert.print(getApplicationContext(), "Despesa excluída com sucesso!");
                     return true;
                 }
-                alert("Erro ao excluir despesa, tente novamente!");
+                Alert.print(getApplicationContext(), "Erro ao excluir despesa, tente novamente!");
                 return false;
             }
         });
@@ -86,10 +109,6 @@ public class GastosMensais extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         carregarLista();
-    }
-
-    public void alert(String s){
-        Toast.makeText(this, s, Toast.LENGTH_LONG).show();
     }
 
     public void onClickCadastrarGasto(View view) {

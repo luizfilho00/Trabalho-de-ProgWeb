@@ -110,7 +110,7 @@
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="29dp"
-        android:onClick="salvarFuncionario"
+        android:onClick="onClickCadastrarFunc"
         android:text="Cadastrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"

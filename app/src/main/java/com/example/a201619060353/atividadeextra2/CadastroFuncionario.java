@@ -25,6 +25,7 @@ public class CadastroFuncionario extends AppCompatActivity {
     private FuncionarioDAO dbHelperFunc;
     private CargoDAO dbHelperCargo;
     private GastosDAO dbHelperGasto;
+    private double salarioAntigo;
     private String novoCargo = "Novo cargo...";
 
     @Override
@@ -83,18 +84,19 @@ public class CadastroFuncionario extends AppCompatActivity {
                 Cargo cargo = f.getCargo();
                 spinnerCargo.setSelection(listCargoAdapter.getPosition(cargo));
                 salarioFunc.setText(String.valueOf(f.getSalario()));
+                salarioAntigo = f.getSalario();
                 ((Button) findViewById(R.id.btnVariavel)).setText("Alterar");
             }
         }
     }
 
-    public void salvarFuncionario(View view) {
+    public void onClickCadastrarFunc(View view) {
         if (spinnerCargo == null || spinnerCargo.getSelectedItem().toString().equals(" ")){
-            alert("Por favor selecione um Cargo!");
+            Alert.print(this, "Por favor selecione um Cargo!");
             return;
         }
         if (isNull()){
-            alert("Por favor preencha todos os campos!");
+            Alert.print(this, "Por favor preencha todos os campos!");
             return;
         }
         String nome = nomeFunc.getText().toString();
@@ -110,10 +112,14 @@ public class CadastroFuncionario extends AppCompatActivity {
                 f = new Funcionario(idFunc, nome, cargo, dataInicio, salario);
                 result = dbHelperFunc.alterarNoBanco(f);
                 if(result != -1){
-                    //TODO Criar método para quando alterar salario do funcionario, alterar o gasto com 'Salários'
-                    alert("Funcionário alterado com sucesso!");
+                    double difSalarios = modulo(salario - salarioAntigo);
+                    if (salario < salarioAntigo)
+                        dbHelperGasto.decrementarGasto(new Gasto("Salários"), difSalarios);
+                    else if (salario > salarioAntigo)
+                        dbHelperGasto.incrementarGasto(new Gasto("Salários"), difSalarios);
+                    Alert.print(this,"Funcionário alterado com sucesso!");
                 }else{
-                    alert("Ocorreu um erro, por favor tente novamente.");
+                    Alert.print(this, "Ocorreu um erro, por favor tente novamente.");
                 }
             }
         }
@@ -121,22 +127,23 @@ public class CadastroFuncionario extends AppCompatActivity {
             f = new Funcionario(nome, cargo, dataInicio, salario);
             result = dbHelperFunc.inserirNoBanco(f);
             if(result != -1){
-                dbHelperGasto.inserirNoBanco(new Gasto("Salários", Datas.PAGAMENTO_FUNC,0, f.getSalario()));
-                alert("Funcionário cadastrado com sucesso!");
+                dbHelperGasto.incrementarGasto(new Gasto("Salários", Datas.PAGAMENTO_FUNC, 0, salario), salario);
+                Alert.print(this, "Funcionário cadastrado com sucesso!");
             }else{
-                alert("Ocorreu um erro, por favor tente novamente.");
+                Alert.print(this, "Ocorreu um erro, por favor tente novamente.");
             }
         }
         finish();
     }
 
+    private double modulo(double valor){
+        if (valor < 0) return -valor;
+        else return valor;
+    }
+
     private boolean isNull(){
         return nomeFunc.getText().toString().isEmpty() ||
                 salarioFunc.getText().toString().isEmpty();
-    }
-
-    private void alert (String msg){
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
     @Override

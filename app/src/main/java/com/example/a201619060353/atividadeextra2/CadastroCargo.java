@@ -33,7 +33,7 @@ public class CadastroCargo extends AppCompatActivity {
 
     public void salvarCargo(View view) {
         if (nomeDoCargo == null || nomeDoCargo.getText().toString().trim().equals("")){
-            alert("Favor inserir nome do cargo!");
+            Alert.print(this, "Favor inserir nome do cargo!");
             return;
         }
         Cargo c;
@@ -43,9 +43,9 @@ public class CadastroCargo extends AppCompatActivity {
                 c = new Cargo(idCargo, nomeDoCargo.getText().toString());
                 result = dbHelperCargo.alterarNoBanco(c);
                 if(result != -1){
-                    alert("Cargo alterado com sucesso!");
+                    Alert.print(this, "Cargo alterado com sucesso!");
                 }else{
-                    alert("Ocorreu um erro, por favor tente novamente.");
+                    Alert.print(this, "Ocorreu um erro, por favor tente novamente.");
                 }
             }
         }
@@ -53,15 +53,11 @@ public class CadastroCargo extends AppCompatActivity {
             c = new Cargo(idCargo, nomeDoCargo.getText().toString());
             result = dbHelperCargo.inserirNoBanco(c);
             if(result != -1){
-                alert("Cargo cadastrado com sucesso!");
+                Alert.print(this, "Cargo cadastrado com sucesso!");
             }else{
-                alert("Ocorreu um erro, por favor tente novamente.");
+                Alert.print(this, "Ocorreu um erro, por favor tente novamente.");
             }
         }
         finish();
-    }
-
-    private void alert(String msg){
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 }

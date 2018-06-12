@@ -2,6 +2,7 @@ package com.example.a201619060353.atividadeextra2;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -53,7 +54,14 @@ public class ListAdapterGastos extends ArrayAdapter<Gasto> {
         int mes = hoje.get(Calendar.MONTH) + 1;
         int ano = hoje.get(Calendar.YEAR);
         int posVencido = -1;
+        Gasto bkpTotal = null;
+        int corTotal = ContextCompat.getColor(context, R.color.corTotalGastos);
         for (Gasto g : gastosList){
+            if (g.getTipo().equals("Total")){
+                bkpTotal = g;
+                gastosList.remove(g);
+                continue;
+            }
             String[] data = g.getData().split("/");
             int d = Integer.parseInt(data[0]);
             int m = Integer.parseInt(data[1]);
@@ -138,11 +146,27 @@ public class ListAdapterGastos extends ArrayAdapter<Gasto> {
                 return 0;
             }
         });
-        String[] items = gastosList.get(position).toString().split("_");
-        ViewHolder holder = (ViewHolder) rowView.getTag();
-        holder.txtTipo.setText(items[0]);
-        holder.txtData.setText(items[1]);
-        holder.txtValor.setText(items[2]);
+        if (bkpTotal != null)
+            gastosList.add(bkpTotal);
+        if (position == gastosList.size() - 1){
+            String[] items = gastosList.get(position).toString().split("_");
+            rowView.setBackgroundColor(corTotal);
+            ViewHolder holder = (ViewHolder) rowView.getTag();
+            holder.txtTipo.setText(items[0]);
+            holder.txtData.setText("");
+            holder.txtValor.setText(items[2]);
+            holder.txtTipo.setTextSize(15);
+            holder.txtTipo.setTypeface(holder.txtTipo.getTypeface(), Typeface.BOLD);
+            holder.txtValor.setTextSize(15);
+            holder.txtValor.setTypeface(holder.txtValor.getTypeface(), Typeface.BOLD);
+        }
+        else {
+            String[] items = gastosList.get(position).toString().split("_");
+            ViewHolder holder = (ViewHolder) rowView.getTag();
+            holder.txtTipo.setText(items[0]);
+            holder.txtData.setText(items[1]);
+            holder.txtValor.setText(items[2]);
+        }
         return rowView;
     }
 

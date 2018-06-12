@@ -82,10 +82,10 @@ public class GerenciaCargos extends AppCompatActivity {
                 retornoDB = dbHelperCargo.excluirDoBanco(cargoSelecionado);
                 carregarLista();
                 if(retornoDB != -1){
-                    alert("Cargo excluído com sucesso!");
+                    Alert.print(getApplicationContext(), "Cargo excluído com sucesso!");
                     return true;
                 }
-                alert("Erro ao excluir cargo, tente novamente!");
+                Alert.print(getApplicationContext(), "Erro ao excluir cargo, tente novamente!");
                 return false;
             }
         });
@@ -115,9 +115,5 @@ public class GerenciaCargos extends AppCompatActivity {
         super.onRestart();
         carregarLista();
         menuPrincipal.close(false);
-    }
-
-    private void alert(String msg){
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 }

@@ -20,6 +20,7 @@ public class BDHelper extends SQLiteOpenHelper {
     private static final String TABLE_CARGO = "cargo";
     private static final String TABLE_FUNC = "funcionario";
     private static final String TABLE_GASTO = "gasto";
+    private static final String TABLE_USUARIO = "usuario";
     private static final String TABLE_CREATE_FUNC =
             "CREATE TABLE IF NOT EXISTS funcionario (" +
                     "func_id integer primary key, " +
@@ -41,6 +42,12 @@ public class BDHelper extends SQLiteOpenHelper {
                     "gasto_pago integer not null," +
                     "gasto_valor real not null);";
 
+    private static final String TABLE_CREATE_USUARIO =
+            "CREATE TABLE IF NOT EXISTS usuario (" +
+                    "usuario_id integer primary key, " +
+                    "usuario_login text unique not null," +
+                    "usuario_senha text not null);";
+
 
     private SQLiteDatabase db;
 
@@ -59,6 +66,7 @@ public class BDHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(TABLE_CREATE_CARGO);
         sqLiteDatabase.execSQL(TABLE_CREATE_FUNC);
         sqLiteDatabase.execSQL(TABLE_CREATE_GASTO);
+        sqLiteDatabase.execSQL(TABLE_CREATE_USUARIO);
         this.db = sqLiteDatabase;
     }
 
@@ -67,6 +75,7 @@ public class BDHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_FUNC);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CARGO);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_GASTO);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USUARIO);
         onCreate(db);
     }
 }

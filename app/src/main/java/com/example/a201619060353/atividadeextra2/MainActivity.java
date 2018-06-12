@@ -81,39 +81,28 @@ public class MainActivity extends AppCompatActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         MenuItem mDelete = menu.add(Menu.NONE, 0, 1, "Deletar");
         MenuItem mSair = menu.add(Menu.NONE, 1, 2, "Cancelar");
-        mDelete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener(){
+        mDelete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 long retornoDB;
                 retornoDB = dbHelperFunc.excluirDoBanco(funcSelecionado);
                 carregarLista();
-                if(retornoDB != -1){
-                    alert("Funcionário excluído com sucesso!");
+                if (retornoDB != -1) {
+                    Alert.print(getApplicationContext(), "Funcionário excluído com sucesso!");
                     return true;
                 }
-                alert("Erro ao excluir funcionário, tente novamente!");
+                Alert.print(getApplicationContext(), "Erro ao excluir funcionário, tente novamente!");
                 return false;
             }
         });
 
-        mSair.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener(){
+        mSair.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 return false;
             }
         });
         super.onCreateContextMenu(menu, v, menuInfo);
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        carregarLista();
-        menuPrincipal.close(false);
-    }
-
-    private void alert(String msg){
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
     public void onClickGerenciarCargos(View view) {
@@ -124,5 +113,11 @@ public class MainActivity extends AppCompatActivity {
     public void onClickGastosMensais(View view) {
         Intent intent = new Intent(this, GastosMensais.class);
         startActivity(intent);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        carregarLista();
+        menuPrincipal.close(false);
     }
 }

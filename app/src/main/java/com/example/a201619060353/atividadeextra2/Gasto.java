@@ -1,8 +1,9 @@
 package com.example.a201619060353.atividadeextra2;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 
-public class Gasto {
+public class Gasto implements Serializable{
     private int id;
     private String tipo;
     private String data;
@@ -66,6 +67,14 @@ public class Gasto {
 
     @Override
     public String toString() {
-        return tipo + "_" + data + "_" + "R$" + new DecimalFormat(".00").format(valor);
+        if (!data.equals("")) {
+            String[] d = data.split("/");
+            if (Integer.parseInt(d[0]) < 10) d[0] = "0" + d[0];
+            if (Integer.parseInt(d[1]) < 10) d[1] = "0" + d[1];
+            if (Integer.parseInt(d[2]) < 10) d[2] = "0" + d[2];
+            String dataFormatada = d[0] + "/" + d[1] + "/" + d[2];
+            return tipo + "_" + dataFormatada + "_" + "R$" + new DecimalFormat("00.00").format(valor);
+        }
+        return tipo + "_" + " " + "_" + "R$" + new DecimalFormat("00.00").format(valor);
     }
 }

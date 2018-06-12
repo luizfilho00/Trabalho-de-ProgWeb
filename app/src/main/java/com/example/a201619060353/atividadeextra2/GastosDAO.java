@@ -86,10 +86,37 @@ public class GastosDAO extends AbstractDAO<Gasto> {
             return -1;
         if (valorNoBanco - decremento >= 0)
             novoValor = valorNoBanco - decremento;
+        if (novoValor == 0){
+            g.setId(id);
+            return excluirDoBanco(g);
+        }
         ContentValues values = new ContentValues();
         values.put(COLUM_TIPO_GASTO, g.getTipo());
-        values.put(COLUM_DATA_PAGAMENTO, g.getData());
-        values.put(COLUM_FLAG_PAGO, g.getPago());
+        values.put(COLUM_VALOR_GASTO, novoValor);
+        long retorno = db.update(TABLE_GASTO, values,COLUM_GASTO_ID + " = " + id, null);
+        cursor.close();
+        db.close();
+        return retorno;
+    }
+
+    public long incrementarGasto(Gasto g, double incremento){
+        db = bdHelper.getWritableDatabase();
+        String query = "SELECT " + COLUM_GASTO_ID + "," + COLUM_VALOR_GASTO +
+                " FROM " + TABLE_GASTO +
+                " WHERE " + COLUM_TIPO_GASTO + " like '" + g.getTipo() + "';";
+        Cursor cursor = db.rawQuery(query, null);
+        double valorNoBanco = 0, novoValor = 0;
+        int id = -1;
+        if (cursor.moveToFirst()){
+            id = cursor.getInt(0);
+            valorNoBanco = cursor.getDouble(1);
+        }
+        else{
+            return inserirNoBanco(g);
+        }
+        novoValor = valorNoBanco + incremento;
+        ContentValues values = new ContentValues();
+        values.put(COLUM_TIPO_GASTO, g.getTipo());
         values.put(COLUM_VALOR_GASTO, novoValor);
         long retorno = db.update(TABLE_GASTO, values,COLUM_GASTO_ID + " = " + id, null);
         cursor.close();
