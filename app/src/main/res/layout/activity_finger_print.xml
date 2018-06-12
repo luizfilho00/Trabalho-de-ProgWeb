@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".modelo.FingerPrint">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/main_icon"
+            android:layout_gravity="center" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:text=""
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Autentique com sua digital"
+            android:layout_gravity="center"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:text=""
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/android_studio_2_fingerprint_icon"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:text=""
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btnCancelarScan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onClickCancelar"
+                android:text="Cancelar"/>
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="1dp"
+                android:text=""
+                />
+
+            <Button
+                android:id="@+id/btnUsarSenha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onClickUtilizarSenha"
+                android:text="Utilizar senha"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
