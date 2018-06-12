@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="com.example.a201619060353.atividadeextra2.GerenciaCargos">
+    tools:context="com.example.a201619060353.atividadeextra2.modelo.GerenciaCargos">
 
     <ListView
         android:layout_width="wrap_content"

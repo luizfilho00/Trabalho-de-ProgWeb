@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.a201619060353.atividadeextra2.dados.Cargo;
+import com.example.a201619060353.atividadeextra2.modelo.CargoDAO;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 

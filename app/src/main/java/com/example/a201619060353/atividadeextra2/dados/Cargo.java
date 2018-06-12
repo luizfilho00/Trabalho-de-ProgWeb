@@ -1,4 +1,4 @@
-package com.example.a201619060353.atividadeextra2;
+package com.example.a201619060353.atividadeextra2.dados;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.example.a201619060353.atividadeextra2;
+package com.example.a201619060353.atividadeextra2.dados;
 
 public class Usuario {
     private int id;

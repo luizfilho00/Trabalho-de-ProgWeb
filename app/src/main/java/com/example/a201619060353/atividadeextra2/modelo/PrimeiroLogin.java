@@ -1,9 +1,12 @@
-package com.example.a201619060353.atividadeextra2;
+package com.example.a201619060353.atividadeextra2.modelo;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import com.example.a201619060353.atividadeextra2.R;
+import com.example.a201619060353.atividadeextra2.dados.Usuario;
 
 public class PrimeiroLogin extends AppCompatActivity {
     private EditText edtLogin, edtSenha, edtConfirmaSenha;

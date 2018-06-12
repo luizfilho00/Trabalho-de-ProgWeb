@@ -1,6 +1,5 @@
 package com.example.a201619060353.atividadeextra2;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +7,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+
+import com.example.a201619060353.atividadeextra2.dados.Gasto;
+import com.example.a201619060353.atividadeextra2.modelo.Alert;
+import com.example.a201619060353.atividadeextra2.modelo.GastosDAO;
 
 public class CadastroGastos extends AppCompatActivity {
     private EditText edtTipo, edtValor;

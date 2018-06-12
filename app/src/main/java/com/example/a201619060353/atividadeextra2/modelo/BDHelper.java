@@ -1,12 +1,8 @@
-package com.example.a201619060353.atividadeextra2;
+package com.example.a201619060353.atividadeextra2.modelo;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import java.util.ArrayList;
 
 /**
  * Created by 201619060353 on 03/04/2018.

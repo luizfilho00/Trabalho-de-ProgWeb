@@ -1,7 +1,6 @@
 package com.example.a201619060353.atividadeextra2;
 
 import android.content.Intent;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -12,15 +11,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ListView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.example.a201619060353.atividadeextra2.dados.Gasto;
+import com.example.a201619060353.atividadeextra2.modelo.Alert;
+import com.example.a201619060353.atividadeextra2.modelo.FuncionarioDAO;
+import com.example.a201619060353.atividadeextra2.modelo.GastosDAO;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class GastosMensais extends AppCompatActivity {
     private ListView listGastos;

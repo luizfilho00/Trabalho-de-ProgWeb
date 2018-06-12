@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import com.example.a201619060353.atividadeextra2.dados.Cargo;
+import com.example.a201619060353.atividadeextra2.modelo.Alert;
+import com.example.a201619060353.atividadeextra2.modelo.CargoDAO;
 
 public class CadastroCargo extends AppCompatActivity {
     private EditText nomeDoCargo;

@@ -1,12 +1,14 @@
-package com.example.a201619060353.atividadeextra2;
+package com.example.a201619060353.atividadeextra2.modelo;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.a201619060353.atividadeextra2.dados.Datas;
+import com.example.a201619060353.atividadeextra2.dados.Gasto;
+
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class GastosDAO extends AbstractDAO<Gasto> {
     private static final String TABLE_GASTO = "gasto";

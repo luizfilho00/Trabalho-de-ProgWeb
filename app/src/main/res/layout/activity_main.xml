@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="com.example.a201619060353.atividadeextra2.MainActivity">
+    tools:context="com.example.a201619060353.atividadeextra2.modelo.MainActivity">
 
     <ListView
         android:layout_width="wrap_content"

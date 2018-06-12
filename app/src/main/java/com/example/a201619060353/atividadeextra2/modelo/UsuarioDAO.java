@@ -1,9 +1,11 @@
-package com.example.a201619060353.atividadeextra2;
+package com.example.a201619060353.atividadeextra2.modelo;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.example.a201619060353.atividadeextra2.dados.Usuario;
 
 import java.util.ArrayList;
 
